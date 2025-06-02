@@ -29,16 +29,8 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-#1
-      - name: Copy artifact for deployment job
-        run: |
-          mkdir deploy
-          cp -r ./.next/standalone/. ./deploy
-          cp -r ./.next/static/. ./deploy/.next/static
-
-
       - name: Zip artifact for deployment
-        run: zip release.zip ./deploy -r #3
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -68,5 +60,5 @@ jobs:
         with:
           app-name: 'app-001-step3-1-suzuyu-node-50'
           slot-name: 'Production'
-          package: ./deploy
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1061CB01C02841689FB6FC7EB419F295 }}
+          package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F92AD8D4FB1F4D2E93D3FCFF442FCBC3 }}

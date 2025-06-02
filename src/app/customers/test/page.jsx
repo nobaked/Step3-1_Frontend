@@ -1,3 +1,6 @@
+"use client";
+export const dynamic = 'force-dynamic';
+
 export default function SignupPage() {
   const createAccount = async (formData) => {
     "use server";

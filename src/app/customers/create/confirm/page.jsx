@@ -14,8 +14,9 @@ export default function ConfirmPage() {
       const customerData = await fetchCustomer(customer_id);
       setCustomer(customerData);
     };
-    fetchAndSetCustomer();
-  }, []);
+    if (customer_id) fetchAndSetCustomer();
+  }, [customer_id]);
+  
 
   return (
     <>

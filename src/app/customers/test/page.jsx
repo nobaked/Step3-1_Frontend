@@ -1,18 +1,14 @@
-"use client";
-export const dynamic = 'force-dynamic';
-
-// サーバーアクションはコンポーネント外に書く
-export async function createAccount(formData) {
-  "use server";
-
-  const name = formData.get("name");
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  console.log({ name, email, password });
-}
-
 export default function SignupPage() {
+  const createAccount = async (formData) => {
+    "use server";
+
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    console.log({ name, email, password });
+  };
+
   return (
     <form action={createAccount} method="POST">
       <p>

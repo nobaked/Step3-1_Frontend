@@ -1,16 +1,14 @@
-// src/app/customers/update/[id]/fetchCustomer.js
-export default async function fetchCustomer(id) {
-  const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+export default async function fetchCustomers() {
+  // PDFのページ3の解答例通り
+  console.log("NEXT_PUBLIC_API_ENDPOINT:", process.env.NEXT_PUBLIC_API_ENDPOINT);
   
-  if (!apiEndpoint) {
-    throw new Error("API endpoint is not configured");
-  }
-  
-  const res = await fetch(`${apiEndpoint}/customers?customer_id=${id}`);
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API_ENDPOINT + "/allcustomers",
+    { cache: "no-cache" }
+  );
   
   if (!res.ok) {
-    throw new Error(`Failed to fetch customer: ${res.status}`);
+    throw new Error("Failed to fetch customers");
   }
-  
   return res.json();
 }

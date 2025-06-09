@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - app-001-step3-1-suzuyu-node-50
 
 on:
@@ -21,11 +18,12 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'  # Node.js 18に変更
+          node-version: '18.x'
 
-      - name: npm install and build
+      - name: Clean and install dependencies
         run: |
-          npm ci  # npm installの代わりにnpm ciを使用
+          rm -f package-lock.json
+          npm install
           npm run build
 
       - name: Upload artifact for deployment job
@@ -53,7 +51,7 @@ jobs:
       
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2  # v2に変更
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'app-001-step3-1-suzuyu-node-50'
           slot-name: 'Production'

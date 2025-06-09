@@ -3,23 +3,29 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import OneCustomerInfoCard from "@/app/components/one_customer_info_card.jsx";
 
-async function fetchCustomer(id) {
-  const res = await fetch(
-    process.env.NEXT_PUBLIC_API_ENDPOINT + `/customers?customer_id=${id}`
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch customer");
-  }
-  return res.json();
-}
-
 function ReadPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const customer_id = searchParams.get("customer_id"); // "customer_id"に変更
+  const customer_id = searchParams.get("customer_id");
   const [customerInfo, setCustomerInfo] = useState(null);
 
   useEffect(() => {
+    const fetchCustomer = async (id) => {
+      const apiEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+      
+      if (!apiEndpoint) {
+        throw new Error("API endpoint is not configured");
+      }
+      
+      const res = await fetch(`${apiEndpoint}/customers?customer_id=${id}`);
+      
+      if (!res.ok) {
+        throw new Error(`Failed to fetch customer: ${res.status}`);
+      }
+      
+      return res.json();
+    };
+
     const loadCustomer = async () => {
       if (customer_id) {
         try {
@@ -30,6 +36,7 @@ function ReadPageContent() {
         }
       }
     };
+    
     loadCustomer();
   }, [customer_id]);
 

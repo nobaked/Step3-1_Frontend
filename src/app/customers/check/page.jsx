@@ -13,18 +13,17 @@ async function fetchCustomer(id) {
   return res.json();
 }
 
-// useSearchParams()を使用する内部コンポーネント
 function ReadPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const id = searchParams.get("id"); // URLパラメータから取得
+  const customer_id = searchParams.get("customer_id"); // "customer_id"に変更
   const [customerInfo, setCustomerInfo] = useState(null);
 
   useEffect(() => {
     const loadCustomer = async () => {
-      if (id) {
+      if (customer_id) {
         try {
-          const data = await fetchCustomer(id);
+          const data = await fetchCustomer(customer_id);
           setCustomerInfo(data);
         } catch (error) {
           console.error("Failed to fetch customer:", error);
@@ -32,7 +31,7 @@ function ReadPageContent() {
       }
     };
     loadCustomer();
-  }, [id]);
+  }, [customer_id]);
 
   if (!customerInfo) {
     return <div className="loading loading-spinner loading-lg"></div>;
@@ -51,7 +50,6 @@ function ReadPageContent() {
   );
 }
 
-// 親コンポーネント（Suspenseでラップ）
 export default function ReadPage() {
   return (
     <Suspense fallback={<div className="loading loading-spinner loading-lg"></div>}>

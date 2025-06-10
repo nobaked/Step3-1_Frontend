@@ -1,5 +1,4 @@
 "use client";
-export const dynamic = 'force-dynamic'
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import OneCustomerInfoCard from "@/app/components/one_customer_info_card.jsx";

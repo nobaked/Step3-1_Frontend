@@ -5,6 +5,16 @@ import fetchCustomer from "./fetchCustomer";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 
+// 親コンポーネント（Suspenseでラップ）
+export default function ConfirmPage() {
+  return (
+    <Suspense fallback={<div className="loading loading-spinner loading-lg"></div>}>
+      <ConfirmContent />
+    </Suspense>
+  );
+}
+
+
 // useSearchParams()を使用する内部コンポーネント
 function ConfirmContent() {
   const router = useRouter();
@@ -32,11 +42,3 @@ function ConfirmContent() {
   );
 }
 
-// 親コンポーネント（Suspenseでラップ）
-export default function ConfirmPage() {
-  return (
-    <Suspense fallback={<div className="loading loading-spinner loading-lg"></div>}>
-      <ConfirmContent />
-    </Suspense>
-  );
-}
